@@ -10,26 +10,11 @@
 #include <string.h>
 #include "Huffman.h"
 
-// 引入 main.c 中定义的共享数据缓冲区结构体
-typedef struct
-{
-    huffmannode *root;            
-    char input_text[256];         
-    char data[MAX_CHAR];          
-    int freq[MAX_CHAR];           
-    int size;                     
-    int final_freq[MAX_CHAR];     
-    char compressed_stream[2048]; 
-    char decompressed_text[256];  
-} databuffer;
-
-extern databuffer buf; // 引用全局变量
-
 // 将当前会话数据安全追加到日志中
 void write_coding_log(void)
 {
     int i;
-    FILE *log_file = fopen("codeing_log.txt", "a"); // 以追加模式打开
+    FILE *log_file = fopen("coding_log.txt", "a"); // 以追加模式打开
     
     if (!log_file)
     {
@@ -39,8 +24,8 @@ void write_coding_log(void)
 
     // 格式化写入文件
     fprintf(log_file, "--- 编码日志记录 ---\n");
-    fprintf(log_file, "原始文本: %s\n", buf.input_text);
-    fprintf(log_file, "压缩01流: %s\n", buf.compressed_stream);
+    fprintf(log_file, "原始文本: \n%s\n", buf.input_text);
+    fprintf(log_file, "压缩01流: \n%s\n", buf.compressed_stream);
     fprintf(log_file, "密码本对照:\n");
     
     for (i = 0; i < buf.size; i++)
@@ -52,5 +37,5 @@ void write_coding_log(void)
     fprintf(log_file, "--------------------\n\n");
     
     fclose(log_file); 
-    printf("（本次编码日志已安全写入 codeing_log.txt）\n");
+    printf("（本次编码日志已安全写入 coding_log.txt）\n");
 }

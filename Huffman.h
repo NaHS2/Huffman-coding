@@ -7,7 +7,12 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
-/* 1. 结构体定义 */
+/* 全局变量外部声明 */
+#define MAX_HUFFMAN_TREE_HEIGHT 100 // 哈夫曼树的最大高度
+#define MAX_CHAR 256                // 最大字符数,ASCII 码共有 256 个可能字符
+
+extern char huffmancodes[MAX_CHAR][MAX_HUFFMAN_TREE_HEIGHT]; // 存储编码数组
+/* 结构体定义 */
 
 // 哈夫曼树节点结构
 typedef struct MinHeapNode
@@ -26,13 +31,22 @@ typedef struct MinHeap
     huffmannode **array; // 指针数组，存储每个树节点的指针
 } minheap;
 
-/* 2. 全局变量外部声明 */
-#define MAX_HUFFMAN_TREE_HEIGHT 100 // 哈夫曼树的最大高度
-#define MAX_CHAR 256                // 最大字符数,ASCII 码共有 256 个可能字符
+// 所有核心数据缓冲区
+typedef struct
+{
+    huffmannode *root;            // 哈夫曼树根节点指针
+    char *input_text;         // 用户输入的原始文本
+    char data[MAX_CHAR];          // 字符集
+    int freq[MAX_CHAR];           // 动态字频统计表
+    int size;                     // 实际字符去重后的数量
+    int final_freq[MAX_CHAR];     // 浓缩后的字频数组
+    char *compressed_stream; // 压缩后的 0/1 字符串流
+    char *decompressed_text;  // 解压还原后的文本
+} databuffer;
 
-extern char huffmancodes[MAX_CHAR][MAX_HUFFMAN_TREE_HEIGHT]; // 存储编码数组
+extern databuffer buf;
 
-/* 3. 功能函数声明 */
+/* 功能函数声明 */
 
 // 创建新节点
 huffmannode *creatNode(char data, unsigned freq);

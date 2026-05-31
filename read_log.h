@@ -8,6 +8,7 @@
 #ifndef READ_LOG_H
 #define READ_LOG_H
 
-void read_codeing_log(void);
+void read_coding_log(void);
+void clear_coding_log(void);
 
 #endif // READ_LOG_H
