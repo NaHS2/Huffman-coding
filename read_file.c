@@ -50,7 +50,7 @@ void encode_external_file(void)
     // 完整的读完指定文件的内容，顶满就自动翻倍扩容
     while ((ch = fgetc(fp)) != EOF)
     {
-        // 如果当前装满了，立刻进行“成倍扩容”
+        // 如果当前装满了，立刻进行成倍扩容
         if (index >= current_capacity - 1)
         {
             current_capacity *= 2; // 容量翻倍
