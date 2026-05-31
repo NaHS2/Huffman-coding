@@ -12,6 +12,7 @@
 #include "write_log.h"
 #include "read_file.h"
 #include "read_log.h"
+#include "split_log.h"
 
 databuffer buf = {NULL, NULL, {0}, {0}, 0, {0}, NULL, NULL};
 
@@ -35,10 +36,11 @@ int main()
         printf("2. 解压文本 \n");
         printf("3. 读取外部文件并编码 \n");
         printf("4. 查看历史编码日志 \n");
-        printf("5. 一键清空历史日志 \n");
-        printf("6. 退出程序\n");
+        printf("5. 日志切分（日志过长时可选择使用） \n");
+        printf("6. 一键清空历史日志 \n");
+        printf("7. 退出程序\n");
         printf("==============================\n");
-        printf("请选择操作 (1-6): ");
+        printf("请选择操作 (1-7): ");
 
         // 判断是否输入合法
         if (scanf("%d", &choice) != 1)
@@ -74,10 +76,13 @@ int main()
             read_coding_log();
             break;
         case 5:
+            split_log_file();
+            break;
+        case 6:
             clear_coding_log();
             break;
 
-        case 6:
+        case 7:
             // 释放内存
             free(buf.input_text);
             free(buf.compressed_stream);
@@ -93,7 +98,7 @@ int main()
             break;
         }
 
-    } while (choice != 6);
+    } while (choice != 7);
 
     return EXIT_SUCCESS;
 }

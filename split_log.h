@@ -8,6 +8,6 @@
 #ifndef SPLIT_LOG_H
 #define SPLIT_LOG_H
 
-void split_log_file_ui(void);
+void split_log_file(void);
 
 #endif // SPLIT_LOG_H
